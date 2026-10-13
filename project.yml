@@ -1,0 +1,70 @@
+name: ShazamSync
+options:
+  bundleIdPrefix: com.zaiah
+  deploymentTarget:
+    iOS: "26.0"
+  xcodeVersion: "26.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    CODE_SIGN_IDENTITY: ""
+    CODE_SIGNING_REQUIRED: "NO"
+    CODE_SIGNING_ALLOWED: "NO"
+
+targets:
+  ShazamSyncApp:
+    type: application
+    platform: iOS
+    deploymentTarget: "26.0"
+    sources:
+      - path: ShazamSyncApp
+        excludes:
+          - Info.plist
+      - path: Shared
+    info:
+      path: ShazamSyncApp/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.zaiah.shazamsync
+        INFOPLIST_FILE: ShazamSyncApp/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        SWIFT_EMIT_LOC_STRINGS: YES
+    dependencies:
+      - target: ShazamSyncWidgets
+        embed: true
+      - sdk: ShazamKit.framework
+      - sdk: ActivityKit.framework
+      - sdk: WidgetKit.framework
+      - sdk: AppIntents.framework
+      - sdk: Accelerate.framework
+      - sdk: AVFoundation.framework
+      - sdk: MediaPlayer.framework
+
+  ShazamSyncWidgets:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "26.0"
+    sources:
+      - path: ShazamSyncWidgets
+        excludes:
+          - Info.plist
+      - path: Shared
+    info:
+      path: ShazamSyncWidgets/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.zaiah.shazamsync.widgets
+        INFOPLIST_FILE: ShazamSyncWidgets/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        SKIP_INSTALL: YES
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks"
+    dependencies:
+      - sdk: WidgetKit.framework
+      - sdk: ActivityKit.framework
+      - sdk: SwiftUI.framework
+      - sdk: AppIntents.framework
