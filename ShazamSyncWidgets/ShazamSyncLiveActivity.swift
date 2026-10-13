@@ -200,26 +200,27 @@ struct CompactLeadingView: View {
 }
 
 struct CompactTrailingView: View {
-    @Environment(\.isDynamicIslandLimitedInWidth) private var isLimitedWidth
     let state: ShazamSyncAttributes.ContentState
 
     var body: some View {
-        if isLimitedWidth {
+        ViewThatFits(in: .horizontal) {
+            if state.phase == .playing {
+                Text(timerInterval: state.timerInterval, countsDown: false)
+                    .monospacedDigit()
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(.cyan)
+                    .frame(maxWidth: 48)
+                    .contentTransition(.numericText(countsDown: false))
+            } else {
+                Text(state.phase.shortLabel)
+                    .font(.caption2.weight(.semibold))
+                    .foregroundStyle(.cyan)
+                    .lineLimit(1)
+            }
+
             Image(systemName: "checkmark.circle.fill")
                 .font(.caption2)
                 .foregroundStyle(.cyan)
-        } else if state.phase == .playing {
-            Text(timerInterval: state.timerInterval, countsDown: false)
-                .monospacedDigit()
-                .font(.caption2.weight(.semibold))
-                .foregroundStyle(.cyan)
-                .frame(maxWidth: 48)
-                .contentTransition(.numericText(countsDown: false))
-        } else {
-            Text(state.phase.shortLabel)
-                .font(.caption2.weight(.semibold))
-                .foregroundStyle(.cyan)
-                .lineLimit(1)
         }
     }
 }
