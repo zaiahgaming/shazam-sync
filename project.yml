@@ -28,6 +28,25 @@ targets:
       - path: Shared
     info:
       path: ShazamSyncApp/Info.plist
+      properties:
+        CFBundleDisplayName: ShazamSync
+        LSRequiresIPhoneOS: true
+        NSMicrophoneUsageDescription: "ShazamSync listens to ambient music around you to identify songs and phase-lock playback to the exact spot."
+        NSLocalNetworkUsageDescription: "Allows connecting to your local shazam-sync companion server on your Wi-Fi network."
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+        NSSupportsLiveActivities: true
+        NSSupportsLiveActivitiesFrequentUpdates: true
+        UIBackgroundModes:
+          - audio
+          - processing
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.zaiah.shazamsync
@@ -57,6 +76,10 @@ targets:
       - path: Shared
     info:
       path: ShazamSyncWidgets/Info.plist
+      properties:
+        CFBundleDisplayName: ShazamSyncLiveActivity
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.zaiah.shazamsync.widgets
